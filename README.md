@@ -8,6 +8,6 @@ Proyecto de ejemplo para un servidor REST hecho con Express y body-parser
 Para instalar los módulos de Node `npm install`
 
 ### Uso
-Para probarlo es necesario iniciar el servidor ubicado en 
-> server/server.js
-Y se pueden realizar las pruebas en POSTMan o algún cliente que nos permita enviar peticiones HTTP, en el caso de POST, enviar el body como x-www-form-urlencoded
+Para probarlo es necesario iniciar el servidor ubicado en server/server.js 
+
+Se pueden realizar las pruebas en POSTMan o algún cliente que nos permita enviar peticiones HTTP, en el caso de POST, enviar el body como x-www-form-urlencoded
