@@ -47,7 +47,15 @@ app.put('/usuario/:id', (req, res) => {
     let id = req.params.id;
 
     res.json({
-        'mensaje': `Usuario ${id}`
+        'mensaje': `Put a usuario ${id}`
+    });
+});
+
+app.delete('/usuario/:id', (req, res) => {
+    let id = req.params.id;
+
+    res.json({
+        'mensaje': `Delete a usuario ${id}`
     });
 });
 
