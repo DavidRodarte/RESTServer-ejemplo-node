@@ -3,63 +3,59 @@
  */
 require('./config/config');
 
-const express = require('express');
-const app = express();
+/**
+ * Librerías a requerir
+ */
 
+/**
+ * Para utilizar las rutas y métodos HTTP con facilidad
+ */
+const express = require('express');
 /**
  * body-parser es una librería que nos permite convertir
  * las peticiones provenientes de métodos http en formato legible tipo json
  * para esto, se utiliza bodyParser.json() en el app.use de express
  */
 const bodyParser = require('body-parser');
+/**
+ * mongoose nos permite establecer conexión con BD de MongoDB
+ */
+const mongoose = require('mongoose');
+
+
+
+/********************** */
+
+const app = express();
+
+
 
 /**
- * 
+ * Configuración
  */
-app.use(bodyParser.urlencoded({ extended: false }))
-app.use(bodyParser.json())
+app.use(bodyParser.urlencoded({
+    extended: false
+}));
+app.use(bodyParser.json());
 
-app.get('/', (req, res) => {
-    res.json({
-        'ok':1,
-        'mensaje':'hola'
-    });
-});
+app.use(require('./routes/usuario.js'));
 
-app.post('/usuario', (req, res) => {
-    let body = req.body;
 
-    if( body.nombre === undefined ){
-        res.status(400).json({
-            ok: false,
-            mensaje: 'El nombre es necesario'
-        });
-    }else{
-        res.json({
-            'persona' : body
-        });
-    }
-
-    
-});
-
-app.put('/usuario/:id', (req, res) => {
-    let id = req.params.id;
-
-    res.json({
-        'mensaje': `Put a usuario ${id}`
-    });
-});
-
-app.delete('/usuario/:id', (req, res) => {
-    let id = req.params.id;
-
-    res.json({
-        'mensaje': `Delete a usuario ${id}`
-    });
+/**
+ * Conexión a BD Mongo
+ * Se utilizaron algunas opciones para evitar DeprecationWarnings
+ * de mongoose
+ */
+mongoose.connect(process.env.URLDB, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+    useCreateIndex: true,
+    useFindAndModify: false
+}, (err, res) => {
+    if (err) throw err;
+    console.log('Base de datos conectada');
 });
 
 app.listen(process.env.PORT, () => {
     console.log('Server iniciado ...');
 });
-
