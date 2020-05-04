@@ -13,10 +13,12 @@ const app = express();
 
 const Usuario = require('../models/usuario.js');
 
+const { verificaToken } = require('../middleware/auth');
+ 
 /**
  * Obtener los usuarios
  */
-app.get('/usuario', (req, res) => {
+app.get('/usuario', verificaToken, (req, res) => {
 
     /**
      * Utilizamos parámetros opcionales para
